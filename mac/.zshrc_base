@@ -1,0 +1,41 @@
+
+. "$HOME/.local/bin/env"
+export XDG_CONFIG_HOME="$HOME/.config"
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+
+# Enable colors if TERM is xterm, 256color, or Ghostty
+[[ "$TERM" == (xterm*|*256color|xterm-ghostty) ]] && autoload -Uz colors && colors
+setopt PROMPT_SUBST
+
+# --- Git branch support ---
+autoload -Uz vcs_info
+precmd() { vcs_info }   # run vcs_info before each prompt
+zstyle ':vcs_info:git:*' formats '%F{13}(%b)%f'   # show branch in theme's magenta (slot 5/13)
+
+# --- Color setup ---
+if (( ${terminfo[colors]:-0} >= 256 )); then
+  USER_COLOR=10   # bright green (theme-mapped)
+  HOST_COLOR=12   # bright blue  (theme-mapped)
+  PATH_COLOR='%F{245}'  # neutral gray for path
+else
+  USER_COLOR=2    # green
+  HOST_COLOR=4    # blue
+  PATH_COLOR='%f'
+fi
+
+# Root user override → red
+if [[ $EUID -eq 0 ]]; then
+  USER_COLOR=9    # bright red
+  (( ${terminfo[colors]:-0} < 256 )) && USER_COLOR=1
+fi
+
+# --- Prompt definition ---
+# Line 1: user@host in theme colors + path + git branch
+# Line 2: prompt symbol
+PROMPT='%B%F{'$USER_COLOR'}%n%f@%F{'$HOST_COLOR'}%m%f%b '"$PATH_COLOR"'%~%f ${vcs_info_msg_0_}
+%# '
+
+# Applications
+# NVIM
+export PATH="$HOME/.local/bin/nvim-macos-x86_64/bin:$PATH"
