@@ -37,3 +37,5 @@ theme = Glacier
 #palette = 14=#a0b6d3
 #palette = 15=#ffffff
 keybind = shift+enter=text:\x1b\r
+
+command = /Users/isaacireland/.config/ghostty/ghostty-tmux.sh
