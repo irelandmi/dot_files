@@ -5,3 +5,8 @@
 theme = Glacier
 
 keybind = shift+enter=text:\x1b\r
+
+cursor-style = block
+cursor-style-blink = true
+
+command = ~/workspace/dot_files/tmux/launch.sh

@@ -2,6 +2,8 @@
 # Launch tmux sessions from a config file
 # Usage: ./launch.sh [config_file]
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 CONFIG="${1:-$(dirname "$0")/sessions.conf}"
 
 if [ ! -f "$CONFIG" ]; then
