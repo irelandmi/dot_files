@@ -84,6 +84,7 @@ while IFS= read -r line || [ -n "$line" ]; do
 
 		if tmux has-session -t "$session" 2>/dev/null; then
 			echo "Session '$session' already exists, skipping"
+			first_session="${first_session:-$session}"
 			session=""
 			continue
 		fi
