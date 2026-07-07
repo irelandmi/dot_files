@@ -10,3 +10,5 @@ cursor-style = block
 cursor-style-blink = true
 
 command = ~/workspace/dot_files/tmux/launch.sh
+
+macos-option-as-alt = left
